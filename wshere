@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ $# -ne 1 ]]; then
+	echo "Usage: wshere <file>";
+	exit;
+fi
+
+touch $1
+webstorm $1
