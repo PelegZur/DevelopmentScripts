@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [[ $# -ne 2 ]];
+then
+	echo 'Usage: git alias-branch <target> <alias>';
+	exit;
+fi
+
+if [[ ! $(git rev-parse --git-dir 2> /dev/null) ]];
+then
+	echo 'Current working directory is not a git repository.';
+	exit;
+fi
+
+TARGET=$1
+ALIAS=$2
+
+git symbolic-ref refs/heads/$ALIAS refs/heads/$TARGET
+
+echo "'$ALIAS' now points to branch $TARGET."
