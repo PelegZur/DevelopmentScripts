@@ -1,7 +1,8 @@
 #!/bin/bash
 
 CUR_BRANCH=$(git symbolic-ref -q --short HEAD)
-OUT_FILE='/tmp/fetch-dev-out'
+OUT_FILE='/tmp/pull-dev-out'
+MERGE_MSG="Merge branch 'develop' into $CUR_BRANCH"
 
 # if current branch is dev just pull
 if [[ $CUR_BRANCH == 'develop' ]];
@@ -16,9 +17,12 @@ git checkout develop 2> $OUT_FILE
 if [[ $(cat $OUT_FILE) == error:* ]];
 then
 	cat $OUT_FILE | ghead -n -1;
-	echo "Aborting fetch-dev.";
+	echo "Aborting pull-dev.";
+	rm $OUT_FILE
 	exit;
 fi
+rm $OUT_FILE
 
 git pull
 git checkout $CUR_BRANCH
+git merge develop -m "$MERGE_MSG"
