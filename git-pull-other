@@ -1,0 +1,66 @@
+#!/bin/bash
+
+USAGE='Usage: git pull-other <target> [--no-merge]'
+MERGE=true
+
+if [[ $# -lt 1 || $# -gt 2 ]];
+then
+	echo $USAGE;
+	exit;
+fi
+
+if [[ $# = 2 ]];
+then
+	if [[ $2 != '--no-merge' ]]; 
+	then 
+		echo $USAGE;
+		exit;
+	else 
+		MERGE=false;
+	fi
+fi
+
+TARGET=$1
+
+if [[ ! $(git rev-parse --git-dir 2> /dev/null) ]];
+then
+	echo 'Current working directory is not a git repository.';
+	exit;
+fi
+	
+if [[ ! $(git rev-parse --verify $TARGET) ]];
+then 
+	echo "Local branch $TARGET does not exist."
+	exit;
+fi
+
+CUR_BRANCH=$(git symbolic-ref -q --short HEAD)
+OUT_FILE='/tmp/pull-dev-out'
+MERGE_MSG="Merge branch \"$TARGET\" into $CUR_BRANCH"
+
+# if current branch is target just pull
+if [[ $CUR_BRANCH == $TARGET ]];
+then
+	git pull;
+	exit;
+fi
+
+git checkout $TARGET 2> $OUT_FILE
+
+# if error on checkout abort
+if [[ $(cat $OUT_FILE) == error:* ]];
+then
+	cat $OUT_FILE | ghead -n -1;
+	echo "Aborting pull-other.";
+	rm $OUT_FILE
+	exit;
+fi
+rm $OUT_FILE
+
+git pull
+git checkout $CUR_BRANCH
+
+if [[ $MERGE ]];
+then
+	git merge $TARGET -m "$MERGE_MSG";
+fi
