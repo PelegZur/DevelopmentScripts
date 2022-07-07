@@ -9,4 +9,4 @@
 4) <strong>git-alias-branch</strong>: creates an alias for a branch.
 &emsp;<em>[Usage: git alias-branch \<target\> \<alias\>]</em>
 5) <strong>git-pull-other</strong>: pulls another branch and merges into current branch.
-&emsp;<em>[Usage: git pull-other \<target\> [--no-merge]]</em>
+&emsp;<em>[Usage: git pull-other \<target\> [--no-merge] ]</em>
