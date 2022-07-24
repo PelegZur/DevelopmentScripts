@@ -60,7 +60,7 @@ rm $OUT_FILE
 git pull
 git checkout $CUR_BRANCH
 
-if [[ $MERGE ]];
+if [[ $MERGE = true ]];
 then
 	git merge $TARGET -m "$MERGE_MSG";
 fi
