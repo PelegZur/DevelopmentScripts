@@ -60,7 +60,15 @@ rm $OUT_FILE
 git pull
 git checkout $CUR_BRANCH
 
+MERGE_RESULT=0
 if [[ $MERGE = true ]];
 then
 	git merge $TARGET -m "$MERGE_MSG";
+	MERGE_RESULT=$?;
+fi
+
+if [[ $MERGE_RESULT != 0 ]];
+then 
+	echo "Aborting merge."
+	git merge --abort;
 fi
