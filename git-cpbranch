@@ -1,0 +1,9 @@
+if [[ ! $(git rev-parse --git-dir 2> /dev/null) ]];
+then
+	echo 'Current working directory is not a git repository.';
+	exit 1;
+fi
+
+CUR_BRANCH=$(git symbolic-ref -q --short HEAD)
+echo $CUR_BRANCH | pbcopy
+echo "Copied branch name '$CUR_BRANCH' to clipboard!"

@@ -1,0 +1,14 @@
+#!/bin/bash
+if [[ ! $(git rev-parse --git-dir 2> /dev/null) ]];
+then
+	echo 'Current working directory is not a git repository.';
+	exit 1;
+fi
+
+BRANCH=`git symbolic-ref --short -q HEAD`
+
+git push -f origin $BRANCH:pelegz/$BRANCH
+
+git cpbranch >/dev/null
+echo "pelegz/$(pbpaste)" | pbcopy
+echo "Copied branch name 'pelegz/$BRANCH' to clipboard!"
