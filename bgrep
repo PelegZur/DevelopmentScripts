@@ -1,0 +1,30 @@
+#!/bin/bash
+
+pattern=${1:?usage: $0 <pattern>}
+
+if [[ ! $(git rev-parse --git-dir 2> /dev/null) ]];
+then
+	echo 'Current working directory is not a git repository.';
+	exit 1;
+fi
+
+# Run your commands and store the result in an array
+result=()
+while IFS= read -r line; do
+    result+=( "$line" )
+done < <(git branch | grep -i "$pattern" | sed -e 's/^ *//g' -e 's/ *$//g' -e 's/^\* //')
+#
+# Use select to create an interactive menu for the user
+PS3="Please select an option: "
+select choice in "${result[@]}"; do
+    # Make sure the user selects a valid option
+    if [[ "$REPLY" =~ ^[0-9]+$ ]] && (( REPLY >= 1 )) && (( REPLY <= ${#result[@]} )); then
+        # Use the user's choice to run another command
+        git checkout "${result[$((REPLY-1))]}"
+        break
+    else
+        echo "Invalid option. Please select a number between 1 and ${#result[@]}."
+    fi
+done
+
+
