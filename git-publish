@@ -5,8 +5,11 @@ then
 	exit 1;
 fi
 
-BRANCH=`git symbolic-ref --short -q HEAD`
+BRANCH=$(git symbolic-ref --short -q HEAD)
 
-git push --set-upstream origin $BRANCH:pelegz/$BRANCH
+git push --set-upstream origin "$BRANCH:pelegz/$BRANCH"
 
-git cpbranch
+git cpbranch >/dev/null
+echo "pelegz/$(pbpaste)" | pbcopy
+echo "Copied branch name 'pelegz/$BRANCH' to clipboard!"
+
