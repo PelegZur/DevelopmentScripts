@@ -12,3 +12,7 @@
 &emsp;<em>[Usage: git pull-other \<target\> [--no-merge] ]</em>
 6) <strong>bgrep</strong>: displays local branches containing a <em>grep</em> pattern and allows choice of checkout.<br />
 &emsp;<em>[Usage: bgrep \<pattern\> ]</em>
+7) <strong>git-cpbranch</strong>: copies the current checkout out branch name to clipboard.<br />
+&emsp;<em>[Usage git cpbranch ]</em>
+8) <strong>git-publish</strong>: git pushes to the remote under a directory prefix and copies the remote branch name to clipboard using <em>git-cpbranch</em>.<br />
+&emsp;<em>[Usage git publish ]</em>
