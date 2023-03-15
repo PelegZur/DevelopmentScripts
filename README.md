@@ -10,3 +10,5 @@
 &emsp;<em>[Usage: git alias-branch \<target\> \<alias\>]</em>
 5) <strong>git-pull-other</strong>: pulls another branch and merges into current branch.<br />
 &emsp;<em>[Usage: git pull-other \<target\> [--no-merge] ]</em>
+6) <strong>bgrep</strong>: displays local branches containing a <em>grep</em> pattern and allows choice of checkout.<br />
+&emsp;<em>[Usage: bgrep \<pattern\> ]</em>
