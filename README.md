@@ -4,15 +4,13 @@
 &emsp;<em>[Usage: git pull-dev]</em>
 2) <strong>wshere</strong>: opens a file in a new WebStorm tab.<br />
 &emsp;<em>[Usage: wshere \<file\>]</em>
-3) <strong>git-publish</strong>: pushes a branch to origin and sets an upstream tracked branch if not already configured.<br />
-&emsp;<em>[Usage: git publish]</em>
-4) <strong>git-alias-branch</strong>: creates an alias for a branch.<br />
+3) <strong>git-alias-branch</strong>: creates an alias for a branch.<br />
 &emsp;<em>[Usage: git alias-branch \<target\> \<alias\>]</em>
-5) <strong>git-pull-other</strong>: pulls another branch and merges into current branch.<br />
+4) <strong>git-pull-other</strong>: pulls another branch and merges into current branch.<br />
 &emsp;<em>[Usage: git pull-other \<target\> [--no-merge] ]</em>
-6) <strong>bgrep</strong>: displays local branches containing a <em>grep</em> pattern and allows choice of checkout.<br />
+5) <strong>bgrep</strong>: displays local branches containing a <em>grep</em> pattern and allows choice of checkout.<br />
 &emsp;<em>[Usage: bgrep \<pattern\> ]</em>
-7) <strong>git-cpbranch</strong>: copies the current checkout out branch name to clipboard.<br />
+6) <strong>git-cpbranch</strong>: copies the current checkout out branch name to clipboard.<br />
 &emsp;<em>[Usage: git cpbranch ]</em>
-8) <strong>git-publish</strong>: git pushes to the remote under a directory prefix and copies the remote branch name to clipboard using <em>git-cpbranch</em>.<br />
+7) <strong>git-publish</strong>: git pushes to the remote under a directory prefix and copies the remote branch name to clipboard using <em>git-cpbranch</em>.<br />
 &emsp;<em>[Usage: git publish ]</em>
