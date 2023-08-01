@@ -14,3 +14,6 @@
 &emsp;<em>[Usage: git cpbranch ]</em>
 7) <strong>git-publish</strong>: git pushes to the remote under a directory prefix and copies the remote branch name to clipboard using <em>git-cpbranch</em>.<br />
 &emsp;<em>[Usage: git publish ]</em>
+8) <strong>fixdiff</strong>: runs <em>eslint --fix</em> on all files in diff relative to a remote branch.<br />
+Defaults to branch <em>master</em> and remote <em>origin</em>.<br />
+&emsp;<em>[Usage: fixdiff [--branch <branch>] [--remote <remote>] ]</em>
