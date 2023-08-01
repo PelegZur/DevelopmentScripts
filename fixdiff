@@ -1,7 +1,29 @@
 #!/bin/bash
 
-default_branch=master
-default_remote=origin
+# Set the default values for the branch and remote flags
+branch="master"
+remote="origin"
+
+# Parse command-line options using getopts
+
+# while the number of args is greater than 0
+while [[ $# -gt 0 ]]; do
+    # if the first argument is one of the flags then assign the next argument to the varaible (assuming flags are given as --flag value) then shift args list to next flag
+    case "$1" in
+        --branch)
+            branch="$2"
+            shift 2
+            ;;
+        --remote)
+            remote="$2"
+            shift 2
+            ;;
+        *)
+            echo "Invalid option: $1" >&2
+            exit 1
+            ;;
+    esac
+done
 
 # test whether the current dir is a git repository
 if [[ ! $(git rev-parse --git-dir 2> /dev/null) ]];
@@ -11,15 +33,16 @@ then
 fi
 
 # test whether eslint is installed as a command
-if command -v eslint >/dev/null 2>&1; then
+if ! command -v eslint >/dev/null 2>&1; then
     echo "eslint is not installed."
     exit;
 fi
 
-git fetch
+# fetch remote
+git fetch "$remote"
 
 # get all paths of all files different from default branch
-glo "$default_remote"/"$default_branch".. --name-only --pretty=format: |
+git log "$remote"/"$branch".. --name-only --pretty=format: |
 
 # remove all blank lines
 grep -v '^$' |
