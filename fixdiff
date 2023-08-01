@@ -1,0 +1,31 @@
+#!/bin/bash
+
+default_branch=master
+default_remote=origin
+
+# test whether the current dir is a git repository
+if [[ ! $(git rev-parse --git-dir 2> /dev/null) ]];
+then
+	echo 'Current working directory is not a git repository.';
+	exit;
+fi
+
+# test whether eslint is installed as a command
+if command -v eslint >/dev/null 2>&1; then
+    echo "eslint is not installed."
+    exit;
+fi
+
+git fetch
+
+# get all paths of all files different from default branch
+glo "$default_remote"/"$default_branch".. --name-only --pretty=format: |
+
+# remove all blank lines
+grep -v '^$' |
+
+# sort and remove duplicates
+sort | uniq |
+
+# execute eslint fix on each file
+xargs -I{} eslint --fix {}
