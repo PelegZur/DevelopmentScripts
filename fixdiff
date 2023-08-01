@@ -45,6 +45,15 @@ git fetch "$remote"
 # get all paths of all files different from default branch
 git log "$remote"/"$branch".. --name-only --pretty=format: |
 
+# remove files in the diff that do not exist such as deleted or renamed files
+xargs -I {} sh -c 'test -e "$1" && echo "$1"' _ {} |
+
+# remove all non javascript or typescript files
+grep -E '\.(js|ts)$' |
+
+# transform the relative paths to absolute paths
+xargs -I{} realpath {} |
+
 # remove all blank lines
 grep -v '^$' |
 
