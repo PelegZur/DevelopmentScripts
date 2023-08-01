@@ -39,6 +39,7 @@ if ! command -v eslint >/dev/null 2>&1; then
 fi
 
 # fetch remote
+echo "Fetching $remote..."
 git fetch "$remote"
 
 # get all paths of all files different from default branch
