@@ -38,6 +38,9 @@ if ! command -v eslint >/dev/null 2>&1; then
     exit;
 fi
 
+# get the base path of the git dir
+git_repo_base_path=$(git rev-parse --show-toplevel)
+
 # fetch remote
 echo "Fetching $remote..."
 git fetch "$remote"
@@ -45,14 +48,15 @@ git fetch "$remote"
 # get all paths of all files different from default branch
 git log "$remote"/"$branch".. --name-only --pretty=format: |
 
+
+# transform the relative paths to absolute paths
+xargs -I{} echo "$git_repo_base_path"/{} |
+
 # remove files in the diff that do not exist such as deleted or renamed files
 xargs -I {} sh -c 'test -e "$1" && echo "$1"' _ {} |
 
 # remove all non javascript or typescript files
 grep -E '\.(js|ts)$' |
-
-# transform the relative paths to absolute paths
-xargs -I{} realpath {} |
 
 # remove all blank lines
 grep -v '^$' |
