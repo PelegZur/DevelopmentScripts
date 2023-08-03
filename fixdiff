@@ -61,4 +61,4 @@ grep -v '^$' |
 sort | uniq |
 
 # execute eslint fix on each file
-xargs -I{} eslint --fix --quiet {}
+xargs -I{} sh -c 'echo "fixing $1" && eslint --fix --quiet $1' _ {}
