@@ -18,6 +18,10 @@ while [[ $# -gt 0 ]]; do
             remote="$2"
             shift 2
             ;;
+          --commit|-c)
+            commit_flag=1
+            shift
+            ;;
         *)
             echo "Invalid option: $1" >&2
             exit 1
@@ -65,4 +69,17 @@ grep -v '^$' |
 sort | uniq |
 
 # execute eslint fix on each file
-xargs -I{} sh -c 'echo "fixing $1" && eslint --fix --quiet $1' _ {}
+xargs -I{} sh -c 'echo "fixing $1" && eslint --fix --quiet $1 | grep --color=auto "  error  "' _ {}
+
+clean_status=$(git status | grep 'working tree clean')
+if [ ! -z "$clean_status" ]; then
+  echo "No errors were fixed.";
+  exit 0
+else
+  echo "Some errors were fixed."
+  git --no-pager diff
+
+  if [ ! -z "$commit_flag" ]; then
+    git commit -am "Fixed eslint errors using the eslint-fix-mr-files script";
+  fi
+fi
