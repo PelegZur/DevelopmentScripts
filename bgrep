@@ -12,7 +12,7 @@ fi
 result=()
 while IFS= read -r line; do
     result+=( "$line" )
-done < <(git branch | grep -i "$pattern" | grep -v -- '->' | sed -e 's/^ *//g' -e 's/ *$//g' -e 's/^\* //')
+done < <(git branch --sort=-committerdate | grep -i "$pattern" | grep -v -- '->' | sed -e 's/^ *//g' -e 's/ *$//g' -e 's/^\* //')
 #
 # Use select to create an interactive menu for the user
 PS3="Please select an option: "
